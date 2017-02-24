@@ -75,7 +75,7 @@ class HomeController :UICollectionViewController, UICollectionViewDelegateFlowLa
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsetsMake(5, 0, 0, 0)
+        return UIEdgeInsetsMake(3, 0, 0, 0)
     }
         override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let layout = UICollectionViewFlowLayout()
@@ -163,8 +163,8 @@ class MessageCell: BaseCell {
         let containerView = UIView()
         addSubview(containerView)
         
-       addConstraintsWithFormat(format:"H:|-10-[v0]|", view: containerView)
-        addConstraintsWithFormat(format:"V:|[v0(50)]|", view: containerView)
+       addConstraintsWithFormat(format:"H:|-20-[v0]|", view: containerView)
+        addConstraintsWithFormat(format:"V:|-10-[v0(50)]|", view: containerView)
         addConstraint(NSLayoutConstraint(item: containerView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0))
         
         containerView.addSubview(nameLabel)
@@ -173,9 +173,9 @@ class MessageCell: BaseCell {
         
         
         containerView.addConstraintsWithFormat(format: "H:|[v0][v1(80)]-12-|", view: nameLabel,timeLabel) //constraints for name label and timeLabel.
-        containerView.addConstraintsWithFormat(format: "V:[v0][v1(24)]",view: nameLabel, messageLabel)
+        containerView.addConstraintsWithFormat(format: "V:|-2-[v0][v1(24)]|",view: nameLabel, messageLabel)
         containerView.addConstraintsWithFormat(format: "H:|[v0]-8-|",view: messageLabel) //contriants for message label
-        containerView.addConstraintsWithFormat(format: "V:[v0(24)]", view: timeLabel)
+        containerView.addConstraintsWithFormat(format: "V:|-2-[v0(24)]|", view: timeLabel)
     
 }
 }

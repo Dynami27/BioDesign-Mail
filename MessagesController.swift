@@ -41,7 +41,7 @@ class MessagesController: UICollectionViewController, UICollectionViewDelegateFl
         
         cell.messageTextView.text = messages?[indexPath.item].text
         
-        if let messageText = messages?[indexPath.item].text{ //let profileImageName = messages?[indexPath.item].friend?.profileImageName {
+        if let messageText = messages?[indexPath.item].text { //let profileImageName = messages?[indexPath.item].friend?.profileImageName {
             
        // cell.profileImageView.image = UIImage(named: profileImageName)
             
@@ -49,8 +49,8 @@ class MessagesController: UICollectionViewController, UICollectionViewDelegateFl
         let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
         let estimatedFrame = NSString(string: messageText).boundingRect(with: size, options: options, attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 18)], context: nil)
         
-        cell.messageTextView.frame = CGRect(x: 48 + 8, y: 0, width: estimatedFrame.width + 16, height: estimatedFrame.height + 20)
-        cell.textBubbleView.frame = CGRect(x: 48, y: 0, width: estimatedFrame.width + 16 + 8, height: estimatedFrame.height + 20)
+        cell.messageTextView.frame = CGRect(x: 60 + 8, y: 0, width: estimatedFrame.width + 16, height: estimatedFrame.height + 20)
+        cell.textBubbleView.frame = CGRect(x: 60, y: 0, width: estimatedFrame.width + 16 + 8, height: estimatedFrame.height + 20)
         }
         return cell
     }
@@ -100,8 +100,8 @@ class MessagesController: UICollectionViewController, UICollectionViewDelegateFl
         addSubview(textBubbleView)
         addSubview(messageTextView)
         addSubview(profileImageView)
-        addConstraintsWithFormat(format: "H:|-8-[v0(30)]" , view: profileImageView)
-        addConstraintsWithFormat(format: "V:[v0(30)]|" , view: profileImageView)
+        addConstraintsWithFormat(format: "H:|-8-[v0(50)]" , view: profileImageView)
+        addConstraintsWithFormat(format: "V:[v0(50)]|" , view: profileImageView)
         profileImageView.backgroundColor = UIColor.red
         }
 }

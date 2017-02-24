@@ -58,6 +58,7 @@ extension HomeController {
         
             let Jon = NSEntityDescription.insertNewObject(forEntityName: "Friend" , into: context) as! Friend
             Jon.name = " Jon Dowdle"
+        
             
             CreateMessageWithText("How is it going", friend: Jon,minutesAgo: 2 ,context: context)
             CreateMessageWithText(" Yeah, It is it is really really good. Highly recommend!!", friend: Jon,minutesAgo: 2,  context: context)
@@ -73,8 +74,16 @@ extension HomeController {
             Ben.name = "Ben Nadal"
             CreateMessageWithText("Discuss Creative Decisions and feedback...", friend: Ben, minutesAgo: 30 * 24, context: context)
             let Avi = NSEntityDescription.insertNewObject(forEntityName: "Friend", into: context) as! Friend
-            Avi.name = "Avi SoroKa"
+            Avi.name = "Avi Soroka"
             CreateMessageWithText("A realtime todo list feedback...", friend: Avi, minutesAgo: 8*60*24, context: context)
+            let Ryan = NSEntityDescription.insertNewObject(forEntityName: "Friend", into: context) as!Friend
+            Ryan.name = "Ryan Duffy"
+            CreateMessageWithText(" Hey! Nobody invites me to this burger joint, Why am I always left out", friend: Ryan, minutesAgo: 8*60*48, context: context)
+            let Elon = NSEntityDescription.insertNewObject(forEntityName: "Friend", into: context) as! Friend
+            Elon.name = " Elon Musk"
+            CreateMessageWithText(" We are launching Dragon tomorrow. Also, Im building an underground tunnnel to aviod the Bay Area traffic. Hope you like it. ", friend: Elon, minutesAgo: 8*60*50, context: context)
+            
+            
             do {
                 try (context.save())
             } catch let err {
