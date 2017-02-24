@@ -73,7 +73,11 @@ class HomeController :UICollectionViewController, UICollectionViewDelegateFlowLa
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: 80)
     }
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsetsMake(5, 0, 0, 0)
+    }
+        override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let layout = UICollectionViewFlowLayout()
         let controller = MessagesController(collectionViewLayout:layout )
         controller.friend = messages?[indexPath.item].friend
@@ -92,6 +96,7 @@ class MessageCell: BaseCell {
     var message: Message? {
         didSet {
             nameLabel.text = message?.friend?.name
+            
             messageLabel.text = message?.text
               if let date = message?.date {
                 let dateFormamatter = DateFormatter()
@@ -109,7 +114,13 @@ class MessageCell: BaseCell {
             }
         }
 }
-    
+    let profileImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.layer.cornerRadius = 34
+        imageView.layer.masksToBounds = true
+        return imageView
+        }()
     let dividerLineView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(white: 0.5, alpha: 0.5)
@@ -144,8 +155,8 @@ class MessageCell: BaseCell {
         setupContainerView() //setting up containerView
         
         
-        addConstraintsWithFormat(format: "H:|[v0]|",view:dividerLineView)
-        addConstraintsWithFormat(format: "V:[v0(1)]|", view: dividerLineView)
+        addConstraintsWithFormat(format: "H:|-5-[v0]|",view:dividerLineView)
+        addConstraintsWithFormat(format: "V:[v0(1)]", view: dividerLineView)
     }
 
     private func setupContainerView() {
@@ -153,7 +164,7 @@ class MessageCell: BaseCell {
         addSubview(containerView)
         
        addConstraintsWithFormat(format:"H:|-10-[v0]|", view: containerView)
-        addConstraintsWithFormat(format:"V:|-5-[v0(50)]|", view: containerView)
+        addConstraintsWithFormat(format:"V:|[v0(50)]|", view: containerView)
         addConstraint(NSLayoutConstraint(item: containerView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0))
         
         containerView.addSubview(nameLabel)

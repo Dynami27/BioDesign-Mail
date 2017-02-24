@@ -48,6 +48,7 @@ extension HomeController {
            
             let Billy = NSEntityDescription.insertNewObject(forEntityName: "Friend" , into: context) as! Friend
            Billy.name = " Billy Kiely"
+           
             
             let message = NSEntityDescription.insertNewObject(forEntityName: "Message", into: context) as! Message
             message.friend = Billy

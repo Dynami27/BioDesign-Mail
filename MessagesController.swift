@@ -38,17 +38,21 @@ class MessagesController: UICollectionViewController, UICollectionViewDelegateFl
 }
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! ChatMessageCell
+        
         cell.messageTextView.text = messages?[indexPath.item].text
         
-        if let messageText = messages?[indexPath.item].text, let profileImageName = messages?[indexPath.item] {
+        if let messageText = messages?[indexPath.item].text{ //let profileImageName = messages?[indexPath.item].friend?.profileImageName {
+            
+       // cell.profileImageView.image = UIImage(named: profileImageName)
+            
         let size = CGSize(width: 250, height: 1000)
         let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
         let estimatedFrame = NSString(string: messageText).boundingRect(with: size, options: options, attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 18)], context: nil)
         
-        cell.messageTextView.frame = CGRect(x: 10, y: 0, width: estimatedFrame.width + 16, height: estimatedFrame.height + 20)
-        cell.textBubbleView.frame = CGRect(x: 0, y: 0, width: estimatedFrame.width + 16, height: estimatedFrame.height + 20)        }
-        
-    return cell
+        cell.messageTextView.frame = CGRect(x: 48 + 8, y: 0, width: estimatedFrame.width + 16, height: estimatedFrame.height + 20)
+        cell.textBubbleView.frame = CGRect(x: 48, y: 0, width: estimatedFrame.width + 16 + 8, height: estimatedFrame.height + 20)
+        }
+        return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if let messageText = messages?[indexPath.item].text{
@@ -60,6 +64,10 @@ class MessagesController: UICollectionViewController, UICollectionViewDelegateFl
         }
     
         return CGSize(width: view.frame.width, height: 100)
+        
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsetsMake(8, 0, 0, 0)
     }
 
 
@@ -74,7 +82,16 @@ class MessagesController: UICollectionViewController, UICollectionViewDelegateFl
         let textBubbleView: UIView = {
             let view = UIView()
             view.backgroundColor = UIColor(white:0.95, alpha: 1 )
+            
             return view
+        }()
+        let profileImageView: UIImageView = {
+         let imageView = UIImageView()
+         imageView.contentMode = .scaleAspectFill
+        imageView.layer.cornerRadius = 15
+        imageView.layer.masksToBounds = true
+            
+         return imageView
         }()
         
     override func setupViews() {
@@ -82,7 +99,10 @@ class MessagesController: UICollectionViewController, UICollectionViewDelegateFl
         
         addSubview(textBubbleView)
         addSubview(messageTextView)
-        
-}
+        addSubview(profileImageView)
+        addConstraintsWithFormat(format: "H:|-8-[v0(30)]" , view: profileImageView)
+        addConstraintsWithFormat(format: "V:[v0(30)]|" , view: profileImageView)
+        profileImageView.backgroundColor = UIColor.red
+        }
 }
 }
